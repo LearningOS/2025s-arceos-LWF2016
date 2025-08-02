@@ -6,8 +6,6 @@ use hashbrown::hash_map as base;
 use axhal::misc::random;
 use core::hash::BuildHasher;
 use siphasher::sip::SipHasher13;
-use core::fmt;
-use core::fmt::Debug;
 
 pub struct HashMap<K, V, S = RandomState> {
     base: base::HashMap<K, V, S>,
@@ -61,12 +59,6 @@ impl<K, V> Clone for Iter<'_, K, V> {
 impl<K, V> Default for Iter<'_, K, V> {
     fn default() -> Self {
         Iter { base: Default::default() }
-    }
-}
-
-impl<K: Debug, V: Debug> fmt::Debug for Iter<'_, K, V> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_list().entries(self.clone()).finish()
     }
 }
 
